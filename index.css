@@ -1,0 +1,86 @@
+body{
+    background-color:rgb(216, 219, 252);
+    font-family: sans-serif;
+}
+
+h1{
+    text-align:center;
+}
+input,select,button{
+    border: 1px solid rgb(63, 63, 63); 
+    border-radius: 5px;
+}
+.InputContainer{
+    margin:auto;
+    width:60%;
+    height:80px;
+    background-color:white;
+    border: 2px solid rgb(5, 5, 5); 
+    border-radius: 15px;
+    position: center; 
+    
+}
+#AlertMessage,#AlertMessage2{
+    display: none;
+    margin:2px;
+    color: red;
+    padding-left: 2%;
+}
+#AlertMessage2{
+    margin-left: 41%;
+}
+
+.InputFields{
+    margin-top: 3%;
+    display: flex;
+    justify-content: space-around;
+    height: 30px; 
+
+}
+
+.ModifyButtons { 
+     background-color: rgb(158, 177, 206); 
+     color: rgb(29, 18, 75); 
+     padding: 10px 24px; 
+     cursor: pointer; 
+}
+
+.ButtonHolder{
+     margin:1px 300px;
+     position: relative;
+}
+
+
+.Result{
+    margin:auto;
+    width:60%;
+    background-color:#ffffff;
+    border: 2px solid  rgb(26, 26, 26);
+    border-radius: 15px;
+}
+table{
+    border-collapse: collapse;
+    /* border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px; */
+    width: 100%;
+}
+tr{
+    /* border-collapse: collapse; */
+    border-bottom: 1px solid gray;
+    border-top: 1px solid gray;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    /* border-radius: 15px; */
+}
+.tablerow{
+    /* border-collapse: collapse; */
+    border-bottom: 1px solid gray;
+    border-top: 1px solid gray;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    /* border-radius: 15px; */
+}
+
+.tbhead{
+text-align: left;
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <title>To-Do List</title>
+      <link rel="stylesheet" type="text/css" href="index.css">
+      
+      <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+   </head>
+   <body>
+      
+      <h1>#T0-D0...</h1>
+      <div class="InputContainer">
+            <div class=InputFields>
+               <input type="text" id="Name" class="MyInput" placeholder="Enter Task"  required>
+               <input type="text" id="Description" class="MyInput" placeholder="Description" >
+               <select  id="Options" class="MyInput">
+                  <option value="0">Low</option>
+                  <option value="1">Medium</option>
+                  <option value="2">High</option>
+               </select>
+               <input type="date" id="Time" class="MyInput" placeholder="End Time" >
+               <button id="AddButton" class="ModifyButtons">Add</button>
+            </div> 
+            <h6 id="AlertMessage">Already Exists!</h6>
+      </div>
+      <br>
+      <div class="Result" >
+        <table class="TodoTable">
+           <tr>
+              <th class="tbhead"><input type="checkbox" id = "SelectAll" ></th>
+              <th class="tbhead">Name</th>
+              <th class="tbhead">Description</th>
+              <th class="tbhead">Priority</th>
+              <th class="tbhead">End Time</th>
+           </tr>
+        </table>
+        
+        <div class="ButtonHolder">
+            <br>
+         <button id="DeleteButton" class="ModifyButtons" >Delete</button>
+         <button id="Update" class="ModifyButtons" >Update</button></div>
+         <br>
+      </div>
+      <h5 id="AlertMessage2">Name Field can't be empty!</h5>
+
+    <!-- <script src="utils.js"></script> -->
+    <script src="EventDispatcher.js"></script>
+    <script src="TodoModel.js"></script>
+    <script src="TodoView.js"></script>
+    <script src="TodoController.js"></script>
+    <script src="App.js"></script>
+   
+   </body>
+</html>
