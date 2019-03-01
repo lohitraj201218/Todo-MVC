@@ -23,7 +23,9 @@ TodoModel.prototype = {
                 priority : todo.priority,
                 endtime : todo.endtime
             };
+            console.log(todoDetails);
             this.todos.push(todoDetails);
+            console.log(this.todos.length);
             this.todoNameMap[todo.name] = todoDetails; 
        }else{
            findtodo.description = todo.description;
@@ -45,6 +47,7 @@ TodoModel.prototype = {
 		return selectedTodos;
      },
      setSelectedTodo : function (todoIndex) {
+         console.log("index is "+todoIndex);
         this.selectedTodos.push(todoIndex);
     },
 
@@ -52,8 +55,12 @@ TodoModel.prototype = {
         if(this.selectedTodos.length != 0){
             var selectedTodos = this.selectedTodos;
             // remove from the Todo name to Todo map
+            for(var i in selectedTodos){
+                console.log("see.. "+selectedTodos[i])
+            }
             for(var index in selectedTodos){
                 var todo = this.todos[selectedTodos[index]];
+                console.log("Model "+todo);
                 delete this.todoNameMap[todo.name];
             }
             

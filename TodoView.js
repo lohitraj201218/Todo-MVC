@@ -40,8 +40,8 @@ TodoView.prototype = {
         this.addButton.onclick=this.addTodoButton();
         this.updateButton.onclick=this.updateTodo();
         this.deleteButton.onclick=this.deleteTodo();
-        // this.TableName.onclick=this.todoSelectionCheckBox(event);
-        this.resultset.onclick=this.todoSelectionCheckBox(event);
+        this.TableName.onclick=this.todoSelectionCheckBox();
+        //this.resultset.onclick=this.todoSelectionCheckBox();
         
         this.model.addTodoEvent.attach(this.loadTodo());
         this.model.deleteTodoEvent.attach(this.loadTodo());
@@ -49,9 +49,11 @@ TodoView.prototype = {
         return this;
     },
     
-    // test: function(){
-    //     this.TableName.onclick=this.todoSelectionCheckBox();
-    // },
+    test: function(){
+        for(var i=0;i<this.todoCheckboxs.length;i++){
+            todoCheckboxs[i].onclick=this.todoSelectionCheckBox();
+        }
+    },
     saveEditErrors : function (){ 
         var object = this;
         const getEID =  (id) => document.getElementById(id);
@@ -96,7 +98,7 @@ TodoView.prototype = {
 				description: object.MyInputs[1].value,
 				priority: object.MyInputs[2].value,
 				endtime: object.MyInputs[3].value
-			};
+            };
 			var update = object.MyInputs[0].update;
 			if(todo.name == null || todo.name == ""){
 				getEID("AlertMessage2").style.display="block"; //name can't be empty
@@ -155,7 +157,7 @@ TodoView.prototype = {
             //Template literals
             var content =
              `<td>
-                <input type="checkbox" class = js-todo-checkbox dataindex=${index} dataTodoSelected=false>
+                <input type="checkbox" class = js-todo-checkbox dataindex=${index} dataTodoSelected=${false}>
               </td>
               <td>
                 ${todos[todoIndex].name}
@@ -177,30 +179,28 @@ TodoView.prototype = {
 
     },
 
-    todoSelectionCheckBox : function(event){
-        console.log("i am called");
+    todoSelectionCheckBox : function(){
         var object = this;
-        var elememt = event.target;
-        console.log(elememt.tagName);
-        if(elememt.tagName==="INPUT"){
-            return function(){
-                var todoIndex = elememt.dataindex;
-                
-               if (element.datatodoselected===false) {
-                   elememt.datatodoselected=true;
-                   object.selectTodoEvent.notify({
-                       todoIndex: todoIndex
-                   });
-               } else {
-                   element.datatodoselected=false;
-                   object.unselectTodoEvent.notify({
-                       todoIndex: todoIndex
-                   });
-               }
+       
+       return function(){
+           if(event.target.tagName==="INPUT"){
+               var element = event.target;
+               var todoIndex = element.getAttribute("dataindex");
+                if (element.getAttribute("datatodoselected")=="false") {
+                     element.setAttribute("datatodoselected",true);
+                     object.selectTodoEvent.notify({
+                     todoIndex: todoIndex
+                    });
+                 } else {
+                     element.setAttribute("datatodoselected",false);
+                     object.unselectTodoEvent.notify({
+                     todoIndex: todoIndex
+                    });
+                }
            }
-        }else{
-            return;
-        }
+           
+      }
+        
 		
     }
 	
