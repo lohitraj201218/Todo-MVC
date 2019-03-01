@@ -42,7 +42,6 @@ TodoView.prototype = {
         this.updateButton.onclick=this.updateTodo();
         this.deleteButton.onclick=this.deleteTodo();
         this.TableName.onclick=this.todoSelectionCheckBox();
-        this.SelectAll.onclick=this.todoSelectAll();
         this.model.addTodoEvent.attach(this.loadTodo());
         this.model.deleteTodoEvent.attach(this.loadTodo());
         this.model.saveEditErrors.attach(this.saveEditErrors());
@@ -71,7 +70,6 @@ TodoView.prototype = {
 				alert("Please select only one Todo for the update operation");
 				return;
 			}
-			
             var todo = object.model.getTodos()[selectedTodos];
 			object.displayonInputField(todo);
 		}
@@ -102,7 +100,7 @@ TodoView.prototype = {
 				endtime: object.MyInputs[3].value
             };
             
-			var update = object.MyInputs[0].getAttribute("update");
+            var update = object.MyInputs[0].getAttribute("update");
 			if(todo.name == null || todo.name == ""){
 				getEID("AlertMessage2").style.display="block"; //name can't be empty
 				return;
@@ -142,7 +140,7 @@ TodoView.prototype = {
         getElement("MyInput")[0].disabled=false; //enabling name input field to take inputs; this feature makes sense in update field
         var todos = this.model.getTodos();
         var initialhtml = `<tr>
-        <th class="tbhead"><input type="checkbox" id = "SelectAll" ></th>
+        <th class="tbhead">Select</th>
         <th class="tbhead">Name</th>
         <th class="tbhead">Description</th>
         <th class="tbhead">Priority</th>
@@ -207,26 +205,6 @@ TodoView.prototype = {
       }
         
 		
-    },
-
-    todoSelectAll : function(){
-        var object = this;
-        return function(){
-            var todos = object.model.getTodos();
-            if(event.target.checked){
-                for(var i=0;i<todos.length;i++){
-                    object.selectTodoEvent.notify({
-                        todoIndex: i
-                       });
-                }
-            }else{
-                for(var i=0;i<todos.length;i++){
-                    object.unselectTodoEvent.notify({
-                        todoIndex: i
-                       });
-                }
-            }
-        }
     }
 	
 }

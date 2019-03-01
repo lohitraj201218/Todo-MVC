@@ -3,3 +3,5 @@ with
 add
 delete
 update
+alerts
+no selectall

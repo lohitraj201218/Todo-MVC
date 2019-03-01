@@ -12,7 +12,7 @@ TodoModel.prototype = {
     addTodo: function (todo, update) {		 
         var findTodo = this.todoNameMap[todo.name];
         // if update is undefined then findTodo should be null
-        if (typeof update == 'undefined' && findTodo != null){
+        if ( update === null && findTodo != null){
             // this.saveEditErrors.notify({error : todo.name + " already exist, please give different name"});
             document.getElementById("AlertMessage").style.display="block";
             console.log("exists");
