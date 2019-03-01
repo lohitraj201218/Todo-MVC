@@ -1,4 +1,6 @@
 const getElement = (className) => document.getElementsByClassName(className);
+const getEID =  (id) => document.getElementById(id);
+getElement("MyInput")[0].disabled=false; //enabling name input field to take inputs; this feature makes sense in update field
 console.log("View Ready")
 var TodoView = function (model) {
 	this.model = model;
@@ -16,8 +18,7 @@ TodoView.prototype = {
             .enable();
     },
     createChildren: function(){
-        // const getElement = (className) => document.getElementsByClassName(className);
-        // const getEID =  (id) => document.getElementById(id);
+        this.SelectAll = getEID("SelectAll");
         this.MyInputs = getElement("MyInput");
         this.todoCheckboxs = getElement("js-todo-checkbox");
         this.resultset = getElement("Result")[0];
@@ -41,8 +42,7 @@ TodoView.prototype = {
         this.updateButton.onclick=this.updateTodo();
         this.deleteButton.onclick=this.deleteTodo();
         this.TableName.onclick=this.todoSelectionCheckBox();
-        //this.resultset.onclick=this.todoSelectionCheckBox();
-        
+        this.SelectAll.onclick=this.todoSelectAll();
         this.model.addTodoEvent.attach(this.loadTodo());
         this.model.deleteTodoEvent.attach(this.loadTodo());
         this.model.saveEditErrors.attach(this.saveEditErrors());
@@ -72,7 +72,7 @@ TodoView.prototype = {
 				return;
 			}
 			
-			var todo = object.model.getTodos()[selectedTodos];
+            var todo = object.model.getTodos()[selectedTodos];
 			object.displayonInputField(todo);
 		}
     },
@@ -82,6 +82,8 @@ TodoView.prototype = {
         var MyInputs = getElement("MyInput");
         var object = this;
         MyInputs[0].value=todo.name;
+        MyInputs[0].disabled=true;
+        MyInputs[0].setAttribute("update",true);
         MyInputs[1].value=todo.description;
         MyInputs[2].value=todo.priority;
         MyInputs[3].value=todo.endtime;
@@ -90,8 +92,8 @@ TodoView.prototype = {
     addTodoButton : function () { 
         var object = this;
         const getEID =  (id) => document.getElementById(id);
-        getEID("AlertMessage2").style.display="none";
-        getEID("AlertMessage").style.display="none";
+        
+        getElement("MyInput")[0].disabled=false; //enabling name input field to take inputs; this feature makes sense in update field
 		return function(){
 			var todo = {
 				name: object.MyInputs[0].value,
@@ -99,13 +101,12 @@ TodoView.prototype = {
 				priority: object.MyInputs[2].value,
 				endtime: object.MyInputs[3].value
             };
-			var update = object.MyInputs[0].update;
+            
+			var update = object.MyInputs[0].getAttribute("update");
 			if(todo.name == null || todo.name == ""){
 				getEID("AlertMessage2").style.display="block"; //name can't be empty
 				return;
-			}			
-			//object.$TodoListContainer.toggle();
-			//object.$TodoDetailContainer.toggle();		
+			}				
 			object.addTodoEvent.notify({
 				todo : todo,
 				update : update
@@ -115,6 +116,7 @@ TodoView.prototype = {
     
     deleteTodo : function(){
         var object = this;
+        getElement("MyInput")[0].disabled=false; //enabling name input field to take inputs; this feature makes sense in update field
 		return function(){
 			var selectedTodos = object.model.getSelectedTodo();
 			if(selectedTodos.length == 0){
@@ -135,6 +137,9 @@ TodoView.prototype = {
     },
 
     buildList: function () {
+        getEID("AlertMessage2").style.display="none";
+        getEID("AlertMessage").style.display="none";
+        getElement("MyInput")[0].disabled=false; //enabling name input field to take inputs; this feature makes sense in update field
         var todos = this.model.getTodos();
         var initialhtml = `<tr>
         <th class="tbhead"><input type="checkbox" id = "SelectAll" ></th>
@@ -202,6 +207,26 @@ TodoView.prototype = {
       }
         
 		
+    },
+
+    todoSelectAll : function(){
+        var object = this;
+        return function(){
+            var todos = object.model.getTodos();
+            if(event.target.checked){
+                for(var i=0;i<todos.length;i++){
+                    object.selectTodoEvent.notify({
+                        todoIndex: i
+                       });
+                }
+            }else{
+                for(var i=0;i<todos.length;i++){
+                    object.unselectTodoEvent.notify({
+                        todoIndex: i
+                       });
+                }
+            }
+        }
     }
 	
 }

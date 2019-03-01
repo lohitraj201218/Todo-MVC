@@ -13,7 +13,9 @@ TodoModel.prototype = {
         var findTodo = this.todoNameMap[todo.name];
         // if update is undefined then findTodo should be null
         if (typeof update == 'undefined' && findTodo != null){
-            this.saveEditErrors.notify({error : todo.name + " already exist, please give different name"});
+            // this.saveEditErrors.notify({error : todo.name + " already exist, please give different name"});
+            document.getElementById("AlertMessage").style.display="block";
+            console.log("exists");
             return;
         }
         if(findTodo == null){
@@ -23,14 +25,12 @@ TodoModel.prototype = {
                 priority : todo.priority,
                 endtime : todo.endtime
             };
-            console.log(todoDetails);
             this.todos.push(todoDetails);
-            console.log(this.todos.length);
             this.todoNameMap[todo.name] = todoDetails; 
        }else{
-           findtodo.description = todo.description;
-           findtodo.priority = todo.priority;
-           findtodo.endtime = todo.endtime;
+           findTodo.description = todo.description;
+           findTodo.priority = todo.priority;
+           findTodo.endtime = todo.endtime;
        }
        this.clear();
        this.addTodoEvent.notify();
@@ -47,7 +47,6 @@ TodoModel.prototype = {
 		return selectedTodos;
      },
      setSelectedTodo : function (todoIndex) {
-         console.log("index is "+todoIndex);
         this.selectedTodos.push(todoIndex);
     },
 
@@ -55,12 +54,8 @@ TodoModel.prototype = {
         if(this.selectedTodos.length != 0){
             var selectedTodos = this.selectedTodos;
             // remove from the Todo name to Todo map
-            for(var i in selectedTodos){
-                console.log("see.. "+selectedTodos[i])
-            }
             for(var index in selectedTodos){
                 var todo = this.todos[selectedTodos[index]];
-                console.log("Model "+todo);
                 delete this.todoNameMap[todo.name];
             }
             
