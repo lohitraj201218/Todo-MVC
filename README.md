@@ -1,2 +1,2 @@
-# Todo application in MVC Architecture
+# To-Do application in MVC Architecture
 ### *With CURD functionalities*
