@@ -1,7 +1,2 @@
-This is a Todo application in MVC Architecture
-with
-add
-delete
-update
-alerts
-no selectall
+# Todo application in MVC Architecture
+### *With CURD functionalities*
